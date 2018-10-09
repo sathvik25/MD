@@ -73,7 +73,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>CounterWebApp11</finalName>
+		<finalName>CounterWebApp1234</finalName>
 
 		<plugins>
 		    <!-- Eclipse project -->
