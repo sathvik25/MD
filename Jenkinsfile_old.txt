@@ -1,0 +1,20 @@
+pipeline{
+    agent any
+    stages{
+        stage('Build Counterwebapp'){
+            steps{
+                bat 'mvn clean install'
+            }
+        }
+        stage('Build'){
+            steps{
+                echo 'helloworld'
+            }
+        }
+        stage('Deploy'){
+            steps{
+                echo 'Deployed the application'
+            }
+        }
+    }
+}

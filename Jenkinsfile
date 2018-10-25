@@ -1,19 +1,29 @@
 pipeline{
     agent any
     stages{
-        stage('Initialize'){
+        stage('Build counterwebapp'){
             steps{
-                echo 'Initializing the file'
+                bat 'mvn clean install'
+            }
+            post{
+                success{
+                    archiveArtifacts artifacts : '**/*.war'
+                }
             }
         }
-        stage('Build'){
+        stage('Build w1'){
             steps{
-                echo 'helloworld'
+                build job : 'w1'
             }
         }
-        stage('Deploy'){
+        stage('Build w2'){
             steps{
-                echo 'Deployed the application'
+                build job : 'w2'
+            }
+        }
+        stage('Build w3'){
+            steps{
+                build job : 'w3'
             }
         }
     }
