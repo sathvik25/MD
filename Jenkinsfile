@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage('Build counterwebapp'){
             steps{
-                'mvn clean install'
+                sh 'mvn clean install'
             }
             post{
                 success{
