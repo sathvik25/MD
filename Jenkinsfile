@@ -11,19 +11,26 @@ pipeline{
                 }
             }
         }
-        stage('Build w1'){
+        stage('Deploy to Staging'){
             steps{
-                build job : 'w1'
+                build job : 'Staging_Env'
             }
         }
-        stage('Build w2'){
+        stage('Deploy to Production'){
             steps{
-                build job : 'w2'
+				timeout (time: 5, unit:'DAYS'){
+                    input message: 'Approve PRODUCTION Deployment?'
+                }
+                build job : 'Prod_Env'
             }
-        }
-        stage('Build w3'){
-            steps{
-                build job : 'w3'
+			post{
+                success{
+                    echo 'Deployment on PRODUCTION is Successful'
+                }
+
+                failure{
+                    echo 'Deployement Failure on PRODUCTION'
+                }
             }
         }
     }
