@@ -1,10 +1,10 @@
 pipeline{
     agent any
-	tools {
-        maven 'Maven'
-    }
     stages{
         stage('Build counterwebapp'){
+			tools {
+				maven 'Maven'
+			}
             steps{
                 sh 'mvn clean install'
             }
