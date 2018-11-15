@@ -16,25 +16,43 @@ pipeline{
         }
         stage('Deploy to Staging'){
             steps{
-                build job : 'Staging_Env'
+                build job : 'Staging_Env_New'
             }
         }
-        stage('Deploy to Production'){
+        stage('Deploy to UAT'){
             steps{
 				timeout (time: 5, unit:'DAYS'){
-                    input message: 'Approve PRODUCTION Deployment?'
+                    input message: 'Approve UAT Deployment?'
                 }
-                build job : 'Prod_Env'
+                build job : 'UAT_Env_New'
             }
 			post{
                 success{
-                    echo 'Deployment on PRODUCTION is Successful'
+                    echo 'Deployment on UAT is Successful'
                 }
 
                 failure{
-                    echo 'Deployement Failure on PRODUCTION'
+                    echo 'Deployement Failure on UAT'
                 }
             }
         }
+		stage('Deploy to Production'){
+            steps{
+				timeout (time: 5, unit:'DAYS'){
+                    input message: 'Approve Production Deployment?'
+                }
+                build job : 'Prod_Env_New'
+            }
+			post{
+                success{
+                    echo 'Deployment on Production is Successful'
+                }
+
+                failure{
+                    echo 'Deployement Failure on Production'
+                }
+            }
+        }
+		
     }
 }
